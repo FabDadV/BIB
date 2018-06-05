@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.udacity.gradle.builditbigger.javalib.Joker;
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,5 +33,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void tellJoke(View view) { Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show(); }
+
+    public void tellJoke(View view) {
+        Joker joker = new Joker();
+        String joke = joker.getJoke();
+        Toast.makeText(this, joke, Toast.LENGTH_SHORT).show(); }
 }

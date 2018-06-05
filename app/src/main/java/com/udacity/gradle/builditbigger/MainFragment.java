@@ -10,10 +10,11 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import com.udacity.gradle.builditbigger.javalib.Joker;
+// import com.udacity.gradle.builditbigger.javalib.Joker;
 
 /* A placeholder fragment containing a simple view. */
 public class MainFragment extends Fragment {
+    private TextView textView;
 
     public MainFragment() {
     }
@@ -22,10 +23,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-        TextView textView = view.findViewById(R.id.tv_instruction);
-        Joker joker = new Joker();
-        textView.setText(joker.tellJoke());
-
+        textView = view.findViewById(R.id.tv_instruction);
         AdView mAdView = (AdView) view.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
