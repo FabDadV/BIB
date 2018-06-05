@@ -44,7 +44,7 @@ public class Joker {
                 + "\t When you are eating a watermelon.");
     }
 
-    public String getJoke(){
+    public String tellJoke(){
         int i = rnd.nextInt(15);
         return jokes.get(i);
     }
