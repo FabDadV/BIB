@@ -1,15 +1,18 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.udacity.gradle.builditbigger.andlib.LibraryActivity;
 import com.udacity.gradle.builditbigger.javalib.Joker;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String ARG_JOKE = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +36,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+// The button call LibraryActivity and pass the joke from the Java Library to the Android Library.
+    public void launchLibraryActivity(View view) {
+        Intent intent = new Intent(this, LibraryActivity.class);
+        intent.putExtra(ARG_JOKE, new Joker().getJoke());
+        startActivity(intent);
 
-    public void tellJoke(View view) {
-        Joker joker = new Joker();
-        String joke = joker.getJoke();
-        Toast.makeText(this, joke, Toast.LENGTH_SHORT).show(); }
+        // Toast.makeText(this, new Joker().getJoke(), Toast.LENGTH_SHORT).show();
+    }
 }
