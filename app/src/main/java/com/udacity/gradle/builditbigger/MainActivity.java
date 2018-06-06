@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -54,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LibraryActivity.class);
         intent.putExtra(ARG_JOKE, new Joker().getJoke());
         startActivity(intent);
-
-        // Toast.makeText(this, new Joker().getJoke(), Toast.LENGTH_SHORT).show();
     }
 // The button call postJoke from GCE by GceAsyncTask.
     public void postJoke(View view) {
@@ -84,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
                         // options for running against local devappserver
-                        // - 127.0.0.1 is localhost's IP address in Android emulator
+                        // - 10.0.2.2 is localhost's IP address in Android emulator
+                        // - 10.0.3.2 is localhost's IP address in Genymotion emulator
                         // - turn off compression when running against local devappserver
                         .setRootUrl("http://10.0.3.2:8080/_ah/api/")
                         .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
@@ -94,13 +92,11 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                 // end options for devappserver
-
                 myApi = builder.build();
             }
             context = params[0];
 
             try {
-
                 return String.valueOf(myApi.tellJoke().execute().getData()); // (myApiService.getLibJokes().execute().getData());
             } catch (IOException e) {
                 return e.getMessage();
@@ -110,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-//            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         }
     }
 }
