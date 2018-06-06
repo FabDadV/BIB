@@ -19,10 +19,12 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 import com.udacity.gradle.builditbigger.javalib.Joker;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     public static final String ARG_JOKE = "";
-    private Intent intent = null;
+    private EndpointsAsyncTask task;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,19 @@ public class MainActivity extends AppCompatActivity {
     }
 // The button call postJoke from GCE by GceAsyncTask.
     public void postJoke(View view) {
-       new EndpointsAsyncTask().execute(this);
-
+        String result = "Ooops";
+        task = new EndpointsAsyncTask();
+        task.execute(this);
+        try {
+            result = task.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        intent = new Intent(this, LibraryActivity.class);
+        intent.putExtra(ARG_JOKE, result);
+        startActivity(intent);
     }
 
     public static class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
@@ -73,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         // options for running against local devappserver
                         // - 127.0.0.1 is localhost's IP address in Android emulator
                         // - turn off compression when running against local devappserver
-                        .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                        .setRootUrl("http://10.0.3.2:8080/_ah/api/")
                         .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                             @Override
                             public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -88,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
 
-                return myApi.tellJoke().execute().getData();
+                return String.valueOf(myApi.tellJoke().execute().getData()); // (myApiService.getLibJokes().execute().getData());
             } catch (IOException e) {
                 return e.getMessage();
             }
@@ -96,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-//            intent.putExtra(ARG_JOKE, new Joker().getJoke());
+            super.onPostExecute(result);
 
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+//            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         }
     }
 }

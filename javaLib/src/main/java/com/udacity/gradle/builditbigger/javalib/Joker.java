@@ -31,7 +31,7 @@ public class Joker {
         jokes.add(" What did the little boat say to the yacht?\n"
                 + " Can I interest you in a little row-mance?");
         jokes.add(" If a man opens the car door for his wife,"
-                + " you can be sure of one thing — either the car is new or the wife is.");
+                + " you can be sure of one thing   either the car is new or the wife is.");
         jokes.add(" I can not stand Russian nesting dolls.\n"
                 + " They are so full of themselves.");
         jokes.add(" What is the biggest lie in the entire universe?\n"
