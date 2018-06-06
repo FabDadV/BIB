@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BiB</string>
+    <string name="instructions">Press the button for a funny joke!</string>
+    <string name="button_text">Tell joke</string>
+    <string name="gce_text">Press the button for a joke from GCE!</string>
+    <string name="button_post">Post joke</string>
+    <string name="action_settings">Settings</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+</resources>
