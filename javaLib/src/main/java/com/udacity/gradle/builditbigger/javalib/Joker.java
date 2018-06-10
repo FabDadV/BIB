@@ -3,7 +3,7 @@ package com.udacity.gradle.builditbigger.javalib;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Joker {
+public final class Joker {
     private ArrayList<String> jokes = new ArrayList<>();
 
     Random rnd = new Random();
